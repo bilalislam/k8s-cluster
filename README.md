@@ -66,3 +66,10 @@ for access to the dashboard
 kubectl proxy --address='0.0.0.0' --accept-hosts='^.*$' --port=8001
 ```
 Note: don't forget to define port forwarding as 8001:8001 on master node in vbmx nw
+
+for argo cd ref:
+
+https://medium.com/devopsturkiye/self-managed-argo-cd-app-of-everything-a226eb100cf0
+
+for config port forwarding
+https://mohitgoyal.co/2021/04/30/setup-continuous-deployment-for-application-with-kubernetes-and-argo-cd/
