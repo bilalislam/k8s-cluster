@@ -65,3 +65,4 @@ for access to the dashboard
 ```
 kubectl proxy --address='0.0.0.0' --accept-hosts='^.*$' --port=8001
 ```
+Note: don't forget to define port forwarding as 8001:8001 on master node in vbmx nw
