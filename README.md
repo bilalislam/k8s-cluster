@@ -164,6 +164,10 @@ $ chmod +x /usr/local/bin/argocd
 
 ```
 
+## export port for external ip
+```
+$ kubectl port-forward service/guestbook-ui 8000:80
+```
 
 ## troobleshoting
 
