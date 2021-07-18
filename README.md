@@ -24,12 +24,16 @@ vagrant ssh master
 ```
 in master node
 
+You should now deploy a pod network to the cluster.
+Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
 ```
 1. set root password
 2. switch root account
 3. kubeadm init --apiserver-advertise-address 192.168.33.13 --pod-network-cidr=10.244.0.0/16
 4. remove --port 0 from /etc/kubernetes/manifests/kube-[controller-api| scheduler].yaml
-5. join workers to master node
+5. kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+6. join workers to master node
 ```
 for workers
 ```
@@ -37,6 +41,7 @@ vagrant ssh [worker1|worker2]
 ```
 
 set to the container runtime  as a containerd
+create with nano after below;
 ```
 cat /etc/crictl.yaml
 runtime-endpoint: unix:///run/containerd/containerd.sock
@@ -56,7 +61,13 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.2.0/a
 
 for take to the dashboard token 
 ```
-kubectl -n kubernetes-dashboard get secret $(kubectl -n kubernetes-dashboard get sa/admin-user -o jsonpath="{.secrets[0].name}") -o go-template="{{.data.token | base64decode}}"
+$ kubectl create serviceaccount dashboard-admin-sa
+
+$ kubectl create clusterrolebinding dashboard-admin-sa --clusterrole=cluster-admin --serviceaccount=default:dashboard-admin-sa
+
+$ kubectl get secrets
+
+$ kubectl describe secret dashboard-admin-sa-token-d6sfc
 ```
 
 for access to the dashboard
@@ -100,3 +111,6 @@ https://github.com/100daysofkubernetes/100DaysOfKubernetes
 
 ## what is the gitops ?
 https://thenewstack.io/understanding-gitops-the-latest-tools-and-philosophies/
+
+## finalizers on k8s
+kubectl get namespace argocd -o json |jq '.spec = {"finalizers":[]}' >temp.json
