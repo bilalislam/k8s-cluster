@@ -31,9 +31,8 @@ Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
 1. set root password
 2. switch root account
 3. kubeadm init --apiserver-advertise-address 192.168.33.13 --pod-network-cidr=10.244.0.0/16
-4. remove --port 0 from /etc/kubernetes/manifests/kube-[controller-api| scheduler].yaml
-5. kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
-6. join workers to master node
+4. kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+5. join workers to master node
 ```
 for workers
 ```
@@ -67,7 +66,7 @@ $ kubectl create clusterrolebinding dashboard-admin-sa --clusterrole=cluster-adm
 
 $ kubectl get secrets
 
-$ kubectl describe secret dashboard-admin-sa-token-d6sfc
+$ kubectl describe secret $token_name
 ```
 
 for access to the dashboard
@@ -87,10 +86,6 @@ open to argocd :
 
 https://192.168.33.14:31436/login?return_url=https%3A%2F%2F192.168.33.14%3A31436%2Fapplications
 
-for argocd login:
-```
-kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
-```
 
 argocd setup:
 
@@ -119,6 +114,7 @@ kubectl get namespace argocd -o json |jq '.spec = {"finalizers":[]}' >temp.json
 ```
 $ git clone https://github.com/bilalislam/argocd.git
 $ cd argocd/argocd-install/
+$ snap install helm --classic
 $ helm install argocd ./argo-cd --namespace=argocd    --create-namespace -f values-override.yaml
 
 $ kubectl get pods -n argocd -l app.kubernetes.io/name=argocd-server -o name | cut -d'/' -f 2
@@ -130,12 +126,44 @@ for svc port change
 $ kubectl edit svc -n argocd argocd-server
 
 ```
+```
+  ports:
+  - name: http
+    port: 80
+    nodePort: 31346
+    protocol: TCP
+    targetPort: 8080
+  - name: https
+    port: 443
+    nodePort: 31000
+    protocol: TCP
+    targetPort: 8080
+  selector:
+    app.kubernetes.io/instance: argocd
+    app.kubernetes.io/name: argocd-server
+  sessionAffinity: None
+  type: NodePort
+  ```
+
 open with 31000 port whatever running on node 
 
 ```
 $ kubectl get all -n argocd
 $ kubectl -n argocd get pods
+$ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+$ argocd account update-password
 ```
+
+## argo cd cli install
+```
+$ VERSION=$(curl --silent "https://api.github.com/repos/argoproj/argo-cd/releases/latest" | grep '"tag_name"' | sed -E 's/.*"([^"]+)".*/\1/')
+
+$ curl -sSL -o /usr/local/bin/argocd https://github.com/argoproj/argo-cd/releases/download/$VERSION/argocd-linux-amd64
+
+$ chmod +x /usr/local/bin/argocd
+
+```
+
 
 ## troobleshoting
 
