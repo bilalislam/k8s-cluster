@@ -1,7 +1,5 @@
 # k8s-cluster
 
-
-
 spin up three node cluster
 
 * 192.168.33.13 master
@@ -73,3 +71,32 @@ https://medium.com/devopsturkiye/self-managed-argo-cd-app-of-everything-a226eb10
 
 for config port forwarding
 https://mohitgoyal.co/2021/04/30/setup-continuous-deployment-for-application-with-kubernetes-and-argo-cd/
+
+open to argocd :
+
+https://192.168.33.14:31436/login?return_url=https%3A%2F%2F192.168.33.14%3A31436%2Fapplications
+
+for argocd login:
+```
+kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d
+```
+
+argocd setup:
+
+https://devops.anaisurl.com/Day-34-GitOps-and-ArgoCD-9cc4142f93b54de088fe3e34fd6524b5
+
+
+## k8s 
+https://devops.anaisurl.com/kubernetes
+
+## continuous delivery
+https://continuousdelivery.com/principles/
+
+## k8s guide
+https://100daysofkubernetes.io/tools/argo.html#example-notes
+
+## k8s guide github
+https://github.com/100daysofkubernetes/100DaysOfKubernetes
+
+## what is the gitops ?
+https://thenewstack.io/understanding-gitops-the-latest-tools-and-philosophies/
