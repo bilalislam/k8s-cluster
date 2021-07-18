@@ -114,3 +114,35 @@ https://thenewstack.io/understanding-gitops-the-latest-tools-and-philosophies/
 
 ## finalizers on k8s
 kubectl get namespace argocd -o json |jq '.spec = {"finalizers":[]}' >temp.json
+
+## how to install argocd ?
+```
+$ git clone https://github.com/bilalislam/argocd.git
+$ cd argocd/argocd-install/
+$ helm install argocd ./argo-cd --namespace=argocd    --create-namespace -f values-override.yaml
+
+$ kubectl get pods -n argocd -l app.kubernetes.io/name=argocd-server -o name | cut -d'/' -f 2
+
+```
+
+for svc port change
+```
+$ kubectl edit svc -n argocd argocd-server
+
+```
+open with 31000 port whatever running on node 
+
+```
+$ kubectl get all -n argocd
+$ kubectl -n argocd get pods
+```
+
+## troobleshoting
+
+1. https://gitlab.cern.ch/clange/gitops-argo-cd/-/issues/1
+2. https://bleepcoder.com/argo-cd/430715629/unable-to-create-an-app-from-private-repository
+3. https://github.com/argoproj/argo-cd/issues/1322#issuecomment
+4. https://github.com/argoproj/argo-cd/issues/1322
+5. https://www.gitmemory.com/issue/argoproj/argo-cd/1510/487026607
+6. https://stackoverflow.com/questions/52369247/namespace-stuck-as-terminating-how-do-i-remove-it
+7. https://github.com/Azure/AKS/issues/733
