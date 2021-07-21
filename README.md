@@ -32,7 +32,8 @@ Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
 2. switch root account
 3. kubeadm init --apiserver-advertise-address 192.168.33.13 --pod-network-cidr=10.244.0.0/16
 4. kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
-5. join workers to master node
+5. kubeadm token create --print-join-command
+6. join workers to master node
 ```
 for workers
 ```
