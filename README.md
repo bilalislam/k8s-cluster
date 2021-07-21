@@ -118,7 +118,26 @@ $ snap install helm --classic
 $ helm install argocd ./argo-cd --namespace=argocd    --create-namespace -f values-override.yaml
 
 $ kubectl get pods -n argocd -l app.kubernetes.io/name=argocd-server -o name | cut -d'/' -f 2
+```
 
+## how to install argocd - 2  ?
+```
+$ kubectl create namespace argocd
+$ kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+```
+
+##  how to install argo rollouts ?
+```
+$ kubectl create namespace argo-rollouts
+$ kubectl apply -n argo-rollouts -f https://raw.githubusercontent.com/argoproj/argo-rollouts/stable/manifests/install.yaml
+```
+
+##  how to watch rollouts pods
+
+```
+$ kubectl argo rollouts get rollout <ROLLOUT-NAME> --watch
+$ kubectl argo rollouts get experiment <EXPERIMENT-NAME> --watch
 ```
 
 for svc port change
@@ -169,6 +188,22 @@ $ chmod +x /usr/local/bin/argocd
 $ kubectl port-forward service/guestbook-ui 8000:80
 ```
 
+## Argoproj - Application Delivery Platform
+1. https://githubmemory.com/repo/alexmt/argo-combined-demo
+
+## references
+1. https://www.youtube.com/watch?v=0WAm0y2vLIo
+2. https://www.youtube.com/watch?v=vSnVhJkyJBw
+3. https://www.youtube.com/watch?v=TZgLkCFQ2tk
+4. https://www.youtube.com/watch?v=Utjni_LbMxc
+5. https://github.com/argoproj/argo-rollouts/blob/master/docs/getting-started.md
+6. https://github.com/argoproj/rollouts-demo/blob/master/examples/analysis/rollout-with-analysis.yaml
+7. https://github.com/argoproj/rollouts-demo
+
+## best practices
+1. seperate code repository & manifest repository
+3. yeteri kadar scale'e sahip değilseniz insight alamazsınız o yuzden canary değil blue/green kullanılır.
+
 ## troobleshoting
 
 1. https://gitlab.cern.ch/clange/gitops-argo-cd/-/issues/1
@@ -178,3 +213,11 @@ $ kubectl port-forward service/guestbook-ui 8000:80
 5. https://www.gitmemory.com/issue/argoproj/argo-cd/1510/487026607
 6. https://stackoverflow.com/questions/52369247/namespace-stuck-as-terminating-how-do-i-remove-it
 7. https://github.com/Azure/AKS/issues/733
+
+## roadmap
+
+1. before azure pipeline must build to docker file and generate build number
+2. and then create to test app in argocd and trigger to the commit from test and apply k8s file under test folder with enable auto promotion 
+3. if made a commit from master then build new tag as under prod k8s folder without enable auto promotion
+4. finally apply k8s cluster for test and prod
+5. best practices seperate code and manifest repository for clean repo and multi datacenter etc.. as a trendyol sellerads team 
