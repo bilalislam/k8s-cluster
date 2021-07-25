@@ -1,7 +1,23 @@
 ## overview architecture
-
-
 ![cicd](./images/ci-cd.png)
+
+## advanced architecture
+![cicd](./images/cicd-advanced.png)
+
+## motivation
+
+Such as separating code and manifest repository with argocd, giving multidatacenter and multi cluster support, setting up a test environment with rolling blue/green and running a smoketest, then deploying if everything is ok, and having a full automated deployment system, such as undo. to do a study in which I search for topics and add reference links.
+
+tools
+1. argocd
+2. argo rollouts
+3. argo autopilot < r&d cont.> 
+
+full automated pipeline best practices
+
+code > manifest repo trigger with autopilot > change commit hash > select cluster and app with kustomize > setup test for smoketest > deploy / rollback
+
+
 
 # k8s-cluster
 
