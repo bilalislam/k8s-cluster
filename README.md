@@ -230,7 +230,7 @@ $ kubectl port-forward service/guestbook-ui 8000:80
 
 
 ```
-$ export GIT_TOKEN=ghp_PcZ...IP0
+$ export GIT_TOKEN=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
 $ export GIT_REPO=https://github.com/bilalislam/deployment
 $ argocd-autopilot repo bootstrap
 $ argocd-autopilot project create testing
