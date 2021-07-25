@@ -213,19 +213,42 @@ $ kubectl port-forward service/guestbook-ui 8000:80
 ## Argoproj - Application Delivery Platform
 1. https://githubmemory.com/repo/alexmt/argo-combined-demo
 
-## references
-1. https://www.youtube.com/watch?v=0WAm0y2vLIo
-2. https://www.youtube.com/watch?v=vSnVhJkyJBw
-3. https://www.youtube.com/watch?v=TZgLkCFQ2tk
-4. https://www.youtube.com/watch?v=Utjni_LbMxc
-5. https://github.com/argoproj-labs/argocd-autopilot
-6. https://github.com/argoproj/argo-rollouts/blob/master/docs/getting-started.md
-7. https://github.com/argoproj/rollouts-demo/blob/master/examples/analysis/rollout-with-analysis.yaml
-8. https://github.com/argoproj/rollouts-demo
 
 ## best practices
 1. seperate code repository & manifest repository
-3. yeteri kadar scale'e sahip değilseniz insight alamazsınız o yuzden canary değil blue/green kullanılır.
+2. if you have not scale number as enougth then you can not get true insight with canary release that's why use to blue/green strategy in this cases.
+
+## gitops principles
+
+![container-mindset](./images/container-buildingblocks.png)
+
+![gitops](./images/gitops-principles.png)
+
+## argocd-autopilot 
+
+![00](./images/argocd-boostrapper.png)
+
+
+```
+$ export GIT_TOKEN=ghp_PcZ...IP0
+$ export GIT_REPO=https://github.com/bilalislam/deployment
+$ argocd-autopilot repo bootstrap
+$ argocd-autopilot project create testing
+$ argocd-autopilot app create hello-world --app github.com/argoproj-labs/argocd-autopilot/examples/demo-app/ -p testing --wait-timeout 2m
+$ argocd-autopilot app create rollouts-demo --app github.com/bilalislam/rollouts-demo-deployment/  -p testing --wait-timeout 2m
+
+```
+
+git commit to rollouts-demo after argocd root will get this commit and apply to k8s manifest following belows are;
+
+
+![01](./images/01.png)
+
+![02](./images/02.png)
+
+![03](./images/03.png)
+
+![04](./images/blue-green.png)
 
 ## troobleshoting
 
@@ -244,3 +267,13 @@ $ kubectl port-forward service/guestbook-ui 8000:80
 3. if made a commit from master then build new tag as under prod k8s folder without enable auto promotion
 4. finally apply k8s cluster for test and prod
 5. best practices seperate code and manifest repository for clean repo and multi datacenter etc.. as a trendyol sellerads team 
+
+## references
+1. https://www.youtube.com/watch?v=0WAm0y2vLIo
+2. https://www.youtube.com/watch?v=vSnVhJkyJBw
+3. https://www.youtube.com/watch?v=TZgLkCFQ2tk
+4. https://www.youtube.com/watch?v=Utjni_LbMxc
+5. https://github.com/argoproj-labs/argocd-autopilot
+6. https://github.com/argoproj/argo-rollouts/blob/master/docs/getting-started.md
+7. https://github.com/argoproj/rollouts-demo/blob/master/examples/analysis/rollout-with-analysis.yaml
+8. https://github.com/argoproj/rollouts-demo
