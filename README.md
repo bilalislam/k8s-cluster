@@ -259,6 +259,7 @@ git commit to rollouts-demo after argocd root will get this commit and apply to 
 5. https://www.gitmemory.com/issue/argoproj/argo-cd/1510/487026607
 6. https://stackoverflow.com/questions/52369247/namespace-stuck-as-terminating-how-do-i-remove-it
 7. https://github.com/Azure/AKS/issues/733
+8. https://docs.google.com/document/d/1gxKxaMQzH9nNDWW9mZV5_cS7EO4S-pm1s_u5aMK-PZQ/edit#heading=h.8bs6j9hp0nx
 
 ## roadmap
 
