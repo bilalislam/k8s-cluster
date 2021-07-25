@@ -1,3 +1,8 @@
+## overview architecture
+
+
+![cicd](./images/ci-cd.png)
+
 # k8s-cluster
 
 spin up three node cluster
