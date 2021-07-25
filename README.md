@@ -202,9 +202,10 @@ $ kubectl port-forward service/guestbook-ui 8000:80
 2. https://www.youtube.com/watch?v=vSnVhJkyJBw
 3. https://www.youtube.com/watch?v=TZgLkCFQ2tk
 4. https://www.youtube.com/watch?v=Utjni_LbMxc
-5. https://github.com/argoproj/argo-rollouts/blob/master/docs/getting-started.md
-6. https://github.com/argoproj/rollouts-demo/blob/master/examples/analysis/rollout-with-analysis.yaml
-7. https://github.com/argoproj/rollouts-demo
+5. https://github.com/argoproj-labs/argocd-autopilot
+6. https://github.com/argoproj/argo-rollouts/blob/master/docs/getting-started.md
+7. https://github.com/argoproj/rollouts-demo/blob/master/examples/analysis/rollout-with-analysis.yaml
+8. https://github.com/argoproj/rollouts-demo
 
 ## best practices
 1. seperate code repository & manifest repository
